@@ -52,8 +52,6 @@ Not "I trained a model that got 98% accuracy." More like: I can build a full pip
 
 ## Architecture
 
-![alt text](image-1.png)
-
 Raw MVTec images get split into stratified train/val/test sets, preserving the ratio of each defect type across splits. Images are loaded through a PyTorch `Dataset`, with augmentation (flips, rotation, color jitter) applied only during training — validation and test always see clean, unaugmented images so the numbers stay honest.
 
 The model is a ResNet50 pretrained on ImageNet. For each category, the backbone starts frozen, with only a new classification head trained initially. From there, the last one or two residual blocks get unfrozen and fine-tuned at a much lower learning rate than the head, so the pretrained features can adapt without being wrecked by aggressive updates.
